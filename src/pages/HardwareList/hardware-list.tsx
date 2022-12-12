@@ -157,62 +157,6 @@ const ListViewHardware = (): JSX.Element => {
     console.log("filters: ", filters);
   };
 
-  // React.useEffect(() => {
-  //   if (!mounted.current) {
-  //     dispatch(fetch.customerNames.request());
-  //     dispatch(fetchHardware.models.request());
-  //     dispatch(fetchHardware.locations.request());
-  //     dispatch(fetchHardware.status.request());
-  //     mounted.current = true;
-  //   }
-  // }, [dispatch]);
-
-  // React.useEffect(() => {
-  //   return () => {
-  //     mounted.current = false;
-  //   };
-  // }, []);
-
-  // const handleFormSubmit = async (data: Hardware.Derived.SearchForm) => {
-  //   const filters = {
-  //     ...(data.type && { type: data.type }),
-  //     ...(data.modelId && { modelId: data.modelId }),
-  //     ...(data.serialNumber && { serial: data.serialNumber }),
-  //     ...(data.vendorSaleInvoice && {
-  //       vendorSaleInvoice: data.vendorSaleInvoice,
-  //     }),
-  //     ...(data.locationId && { locationId: data.locationId }),
-  //     ...(data.statusId && { statusId: data.statusId }),
-  //     ...(data.buildDateStart && {
-  //       buildDateStart: utils.formatByString(
-  //         new Date(data.buildDateStart),
-  //         `yyyy-MM-dd`
-  //       ),
-  //     }),
-  //     ...(data.buildDateEnd && {
-  //       buildDateEnd: utils.formatByString(
-  //         new Date(data.buildDateEnd),
-  //         `yyyy-MM-dd`
-  //       ),
-  //     }),
-  //   };
-
-  //   try {
-  //     const hardwareUnitsResponse = await getHardwareUnits
-  //       .query(filters)
-  //       .callApi();
-  //     setState(
-  //       produce((draft) => {
-  //         draft.hardwareUnits = hardwareUnitsResponse;
-  //       })
-  //     );
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  console.log("hardwareUnits: ", hardwareUnits);
-
   return (
     <div data-testid="hardware-search-page" className="hardware-page">
       <FormProvider {...methods}>
@@ -298,7 +242,12 @@ const ListViewHardware = (): JSX.Element => {
                   {/* More Filters Block  */}
                   {state.isMoreFilters && (
                     <div data-testid="more-filters-section">
-                      <Inline marginTop="l" scale="m">
+                      <Inline
+                        marginTop="l"
+                        scale="m"
+                        className="Test test"
+                        style={{ textAlign: "start" }}
+                      >
                         <Controller
                           name="type"
                           render={({
