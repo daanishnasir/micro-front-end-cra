@@ -100,8 +100,6 @@ const SearchList = ({
     },
   ];
 
-  console.log("hardwareStatuses: ", hardwareStatuses);
-
   return (
     <Stack
       alignItems="flex-end"
