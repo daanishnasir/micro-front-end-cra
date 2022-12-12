@@ -1,1 +1,1 @@
-export { TableList } from './table-list';
+export { TableList } from "./table-list";

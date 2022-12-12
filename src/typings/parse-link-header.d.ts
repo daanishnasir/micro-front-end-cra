@@ -1,4 +1,4 @@
-declare module 'parse-link-header' {
+declare module "parse-link-header" {
   declare namespace parseLinkHeader {
     interface Link {
       [queryParam: string]: string;
@@ -12,6 +12,8 @@ declare module 'parse-link-header' {
     }
   }
 
-  declare function parse(linkHeader: string | null | undefined): parseLinkHeader.Links | null;
+  declare function parse(
+    linkHeader: string | null | undefined
+  ): parseLinkHeader.Links | null;
   export = parse;
 }

@@ -1,1 +1,1 @@
-export * from './text-casing';
+export * from "./text-casing";

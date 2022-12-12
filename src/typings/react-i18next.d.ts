@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import type { TOptions, TFunctionKeys, TFunctionResult, StringMap } from 'react-i18next';
+import type {
+  TOptions,
+  TFunctionKeys,
+  TFunctionResult,
+  StringMap,
+} from "react-i18next";
 
-declare module 'react-i18next' {
+declare module "react-i18next" {
   type ReturnObjectsOutput = Array<object | string> | object;
   type ReturnObjectsConfig = { returnObjects: true };
 

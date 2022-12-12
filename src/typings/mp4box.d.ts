@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-declare module 'mp4box' {
+declare module "mp4box" {
   export function createFile(): any;
 
   export interface Edit {
@@ -121,43 +121,51 @@ declare module 'mp4box' {
 
   export interface MoovBox extends BaseBox {
     traks: TrakBox[];
-    type: 'moov';
+    type: "moov";
   }
 
   export interface TrakBox extends BaseBox {
     mdia: MdiaBox;
-    type: 'trak';
+    type: "trak";
   }
 
   export interface MdiaBox extends BaseBox {
     minf: MinfBox;
-    type: 'mdia';
+    type: "mdia";
   }
 
   export interface MinfBox extends BaseBox {
     stbl: StblBox;
-    type: 'minf';
+    type: "minf";
   }
   export interface StblBox extends BaseBox {
     stsd: StsdBox;
-    type: 'stbl';
+    type: "stbl";
   }
 
   export interface StsdBox extends BaseBox {
     entries: Box[];
-    type: 'stsd';
+    type: "stsd";
   }
 
   export interface Mp4aBox extends BaseBox {
     esds: EsdsBox;
-    type: 'mp4a';
+    type: "mp4a";
   }
   export interface EsdsBox extends BaseBox {
     esd: Descriptor;
-    type: 'esds';
+    type: "esds";
   }
 
-  export type Box = EsdsBox | MdiaBox | MinfBox | MoovBox | Mp4aBox | StblBox | StsdBox | TrakBox;
+  export type Box =
+    | EsdsBox
+    | MdiaBox
+    | MinfBox
+    | MoovBox
+    | Mp4aBox
+    | StblBox
+    | StsdBox
+    | TrakBox;
 
   interface Descriptor {
     data?: Uint8Array;
