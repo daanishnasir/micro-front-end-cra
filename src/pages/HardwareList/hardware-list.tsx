@@ -55,7 +55,6 @@ const defaultUnits = [...hardwareUnits];
 
 const ListViewHardware = (): JSX.Element => {
   const mounted = React.useRef(false);
-
   const [state, setState] = React.useState<HardwareState>(initialHardwareState);
 
   const initialEditState: SearchForm = {
@@ -196,7 +195,12 @@ const ListViewHardware = (): JSX.Element => {
               />
               <span className="hardware-search-title"> Hardware Search </span>
             </h3>
+
+            {/* ADD DECODER BUTTON IS RIGHT HERE!!!!! */}
+
             <Draft.Button
+              as="a"
+              href="http://localhost:3000/admin/current-org/hardware/create"
               data-testid="add-preset-button"
               label="Add Decoder"
               startNode={<PlusOutlined />}

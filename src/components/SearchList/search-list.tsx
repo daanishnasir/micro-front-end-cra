@@ -110,14 +110,6 @@ const SearchList = ({
       <TableList<HardwareUnit>
         columnHeaders={headers}
         dataTestId="hardware-table-list"
-        // noResultsNode={
-        //   <Inline alignItems="center">
-        //     <NoResults />
-        //   </Inline>
-        // }
-        // onRowClick={(cellData) =>
-        //   navigate(UrlPaths.ADMIN.HARDWARE_VIEW.replace(":uuid", cellData.uuid))
-        // }
         pluginHooks={[useSortBy]}
         rowData={hardwareUnits}
         rowSpacing="m"
