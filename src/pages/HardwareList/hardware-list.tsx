@@ -47,9 +47,11 @@ interface HardwareState {
 }
 
 const initialHardwareState = {
-  hardwareUnits: [],
+  hardwareUnits: hardwareUnits,
   isMoreFilters: false,
 };
+
+const defaultUnits = [...hardwareUnits];
 
 const ListViewHardware = (): JSX.Element => {
   const mounted = React.useRef(false);
@@ -154,7 +156,33 @@ const ListViewHardware = (): JSX.Element => {
       ...(data.statusId && { statusId: data.statusId }),
     };
 
-    console.log("filters: ", filters);
+    const filteredSerailUnits = defaultUnits.filter((unit) =>
+      data.serialNumber.includes(unit.serial)
+    );
+
+    const filteredStatusUnits = defaultUnits.filter(
+      (unit) => unit.statusId === data.statusId
+    );
+
+    if (Boolean(data.serialNumber)) {
+      setState(
+        produce((draft) => {
+          draft.hardwareUnits = filteredSerailUnits;
+        })
+      );
+    } else if (Boolean(data.statusId)) {
+      setState(
+        produce((draft) => {
+          draft.hardwareUnits = filteredStatusUnits;
+        })
+      );
+    } else {
+      setState(
+        produce((draft) => {
+          draft.hardwareUnits = defaultUnits;
+        })
+      );
+    }
   };
 
   return (
@@ -438,8 +466,7 @@ const ListViewHardware = (): JSX.Element => {
               hardwareLocations={allLocationOptions}
               hardwareModels={allModelOptions}
               hardwareStatuses={allStatusOptions}
-              // hardwareUnits={state.hardwareUnits}
-              hardwareUnits={hardwareUnits}
+              hardwareUnits={state.hardwareUnits}
             />
           </div>
         </form>

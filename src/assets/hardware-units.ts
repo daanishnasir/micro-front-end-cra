@@ -61,7 +61,7 @@ export const hardwareUnits = [
   },
   {
     uuid: "6f920cf3-144e-4eff-839e-ef5dbfaf2a5d",
-    serial: "DTest",
+    serial: "E00000008",
     modelId: "D2100",
     statusId: "Dealer Owned",
     locationId: "Plano Office",
