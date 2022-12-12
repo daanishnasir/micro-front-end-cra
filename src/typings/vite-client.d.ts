@@ -1,36 +1,36 @@
 // web worker
-declare module '*?worker' {
+declare module "*?worker" {
   class workerConstructor extends Worker {
     constructor();
   }
   export default workerConstructor;
 }
 
-declare module '*?worker&inline' {
+declare module "*?worker&inline" {
   class workerConstructor extends Worker {
     constructor();
   }
   export default workerConstructor;
 }
 
-declare module '*?sharedworker' {
+declare module "*?sharedworker" {
   const sharedWorkerConstructor: {
     new (): SharedWorker;
   };
   export default sharedWorkerConstructor;
 }
 
-declare module '*?raw' {
+declare module "*?raw" {
   const src: string;
   export default src;
 }
 
-declare module '*?url' {
+declare module "*?url" {
   const src: string;
   export default src;
 }
 
-declare module '*?inline' {
+declare module "*?inline" {
   const src: string;
   export default src;
 }

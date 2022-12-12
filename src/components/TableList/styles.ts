@@ -1,18 +1,18 @@
-import type * as React from 'react';
-import type { Theme } from '@emotion/react';
-import styled from '@emotion/styled';
+import type * as React from "react";
+import type { Theme } from "@emotion/react";
+import styled from "@emotion/styled";
 
 const getPadding = (size: string, theme: Theme) => {
   switch (size) {
-    case 'xs':
+    case "xs":
       return theme.spacing.xs;
-    case 's':
+    case "s":
       return theme.spacing.s;
-    case 'm':
+    case "m":
       return theme.spacing.m;
-    case 'l':
+    case "l":
       return theme.spacing.l;
-    case 'xl':
+    case "xl":
       return theme.spacing.xl;
     default:
       return theme.spacing.m;
@@ -47,7 +47,10 @@ export const ListTableHeader = styled.div<{ isSticky?: boolean }>`
   `}
 `;
 
-export const ListTableData = styled.div<{ height?: React.CSSProperties['height']; rowSpacing: string }>`
+export const ListTableData = styled.div<{
+  height?: React.CSSProperties["height"];
+  rowSpacing: string;
+}>`
   ${({ height, rowSpacing, theme }) => `
   padding: ${theme.spacing.m};
   &:last-of-type {
@@ -80,7 +83,8 @@ export const TableContainer = styled.div`
 `;
 
 export const SubComponentWrapper = styled.div<{ isExpanded: boolean }>`
-  max-height: ${({ isExpanded }) => (isExpanded ? '100%' : '0')};
-  transform: ${({ isExpanded }) => (isExpanded ? 'scaleY(1) translateY(0px)' : 'scaleY(0) translateY(-100px)')};
+  max-height: ${({ isExpanded }) => (isExpanded ? "100%" : "0")};
+  transform: ${({ isExpanded }) =>
+    isExpanded ? "scaleY(1) translateY(0px)" : "scaleY(0) translateY(-100px)"};
   transition: transform 50ms;
 `;
