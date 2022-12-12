@@ -36,7 +36,10 @@ const SearchList = ({
     "Internal Use",
     "Stock-New",
   ];
-  const getStatus = () => statuses[Math.floor(Math.random() * statuses.length)];
+  // const getStatus = () => statuses[Math.floor(Math.random() * statuses.length)];
+
+  const getStatus = (statusId: string) =>
+    hardwareStatuses.find((status) => status.value === statusId);
 
   const getLocation = (locationId: string) =>
     hardwareLocations.find((loc) => loc.value === locationId);
@@ -82,9 +85,8 @@ const SearchList = ({
       accessor: "statusId",
       disableSortBy: true,
       Cell: ({ cellData }) => {
-        const status = getStatus();
-        console.log("status cell: ", cellData);
-        return <Text colorVariant="secondary">{status}</Text>;
+        const status = getStatus(cellData.statusId);
+        return <Text colorVariant="secondary">{status?.label}</Text>;
       },
     },
     {

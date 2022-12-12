@@ -88,6 +88,14 @@ const ListViewHardware = (): JSX.Element => {
         value: "E1210",
         label: "E1210",
       },
+      {
+        value: "E4300",
+        label: "E4300",
+      },
+      {
+        value: "E2211-2",
+        label: "E2211-2",
+      },
     ];
   }, []);
 
@@ -490,7 +498,5 @@ const ListViewHardware = (): JSX.Element => {
     </div>
   );
 };
-
-ListViewHardware.displayName = "ListViewHardware";
 
 export default ListViewHardware;
