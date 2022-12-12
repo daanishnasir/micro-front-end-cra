@@ -21,6 +21,7 @@
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
+  overflow: scroll;
   /* grid-template-rows: 3.25rem 1fr; */
   margin: 0px;
   padding: 0px;
