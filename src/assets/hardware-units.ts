@@ -542,7 +542,7 @@ export const hardwareUnits = [
   {
     uuid: "342d6f2b-5310-43c5-8468-6df0036b11b3",
     serial: "E10006925",
-    modelId: "de5828cf-71db-4d2b-99b5-fd758893d948",
+    modelId: "E1210",
     statusId: "Dealer Owned",
     locationId: "Twisted Transistor",
     buildDate: "2022-10-10T05:10:00Z",
@@ -557,7 +557,7 @@ export const hardwareUnits = [
   {
     uuid: "23bc5479-3da4-4fbb-b10b-b82539928d14",
     serial: "E10007116",
-    modelId: "de5828cf-71db-4d2b-99b5-fd758893d948",
+    modelId: "E1210",
     statusId: "Customer Owned",
     locationId: "Twisted Transistor",
     buildDate: "2022-07-18T05:07:00Z",
@@ -992,7 +992,7 @@ export const hardwareUnits = [
   {
     uuid: "6c2cb812-e4b8-4604-b914-ed80afdaba89",
     serial: "ETAYLOR43",
-    modelId: "de5828cf-71db-4d2b-99b5-fd758893d948",
+    modelId: "E1210",
     statusId: "Dealer Owned",
     locationId: "Twisted Transistor",
     buildDate: "2022-03-09T07:03:00Z",
