@@ -1,0 +1,42 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 2rem 1rem;
+  margin-bottom: 2rem;
+  height: 0;
+}
+
+.titleIcon-container {
+  display: flex;
+  align-items: center;
+  line-height: 1.25;
+  font-weight: 700;
+  font-size: 2rem;
+  font-family: Cabin, "Open Sans", sans-serif;
+}
+
+.hardware-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  /* grid-template-rows: 3.25rem 1fr; */
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  font: inherit;
+  vertical-align: baseline;
+  width: 100%;
+  background-color: rgb(245, 245, 245);
+}
+
+.hardware-search-title {
+  font-size: 32px;
+  font-weight: 700;
+  /* line-height: 40px; */
+}
+
+.hardware-search-list-content {
+  padding: 0px 2rem 2rem;
+}
