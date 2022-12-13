@@ -7,7 +7,11 @@ import {
 } from "@resi-media/resi-ui";
 import ListViewHardware from "./pages/HardwareList/hardware-list";
 
-function App() {
+type Props = {
+  studioHost: string;
+};
+
+const App: React.FC<Props> = ({ studioHost }) => {
   return (
     <BreakpointProvider queries={theme.mq}>
       <BreakpointConsumer>
@@ -30,7 +34,7 @@ function App() {
               }}
             >
               <div className="App">
-                <ListViewHardware />
+                <ListViewHardware studioHost={studioHost} />
               </div>
             </ThemeProvider>
           );
@@ -38,6 +42,6 @@ function App() {
       </BreakpointConsumer>
     </BreakpointProvider>
   );
-}
+};
 
 export default App;
