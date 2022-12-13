@@ -4,12 +4,14 @@ import App from "./App";
 
 (window as any).renderListViewHardware = (
   containerId: string,
-  props: { studioHost: string }
+  { studioHost } = {
+    studioHost: "http://localhost:5002",
+  }
 ) => {
   const root = ReactDOM.createRoot(
     document.getElementById(containerId) as HTMLElement
   );
-  root.render(<App />);
+  root.render(<App studioHost={studioHost} />);
 };
 
 (window as any).unmountListViewHardware = (containerId: string) => {

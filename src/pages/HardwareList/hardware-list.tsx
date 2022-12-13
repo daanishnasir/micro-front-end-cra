@@ -53,7 +53,11 @@ const initialHardwareState = {
 
 const defaultUnits = [...hardwareUnits];
 
-const ListViewHardware = (): JSX.Element => {
+type Props = {
+  studioHost: string;
+};
+
+const ListViewHardware: React.FC<Props> = ({ studioHost }) => {
   const mounted = React.useRef(false);
   const [state, setState] = React.useState<HardwareState>(initialHardwareState);
 
@@ -200,7 +204,7 @@ const ListViewHardware = (): JSX.Element => {
 
             <Draft.Button
               as="a"
-              href="http://localhost:3000/admin/current-org/hardware/create"
+              href={`${studioHost}/admin/current-org/hardware/create`}
               data-testid="add-preset-button"
               label="Add Decoder"
               startNode={<PlusOutlined />}
