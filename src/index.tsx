@@ -4,7 +4,7 @@ import App from "./App";
 
 (window as any).renderListViewHardware = (
   containerId: string,
-  { studioHost }: { studioHost: string } = {
+  { studioHost } = {
     studioHost: "http://localhost:5002",
   }
 ) => {
