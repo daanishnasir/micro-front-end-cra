@@ -1,13 +1,7 @@
 import * as React from "react";
-import { Inline, Stack, Text, Draft } from "@resi-media/resi-ui";
+import { Stack, Text } from "@resi-media/resi-ui";
 import type { Option } from "@resi-media/resi-ui";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import type {
-  CustomCellProps,
-  ResiColumn,
-  UseTableRowProps,
-} from "react-table";
+import type { ResiColumn } from "react-table";
 import { useSortBy } from "react-table";
 import { HardwareUnit } from "../../pages/HardwareList/hardware-list";
 import { TableList } from "../TableList";
@@ -20,6 +14,7 @@ type _Props = {
   hardwareModels: Option[];
   hardwareStatuses: Option[];
   hardwareUnits: HardwareUnit[];
+  navigate: (route: string) => void;
 };
 
 const SearchList = ({
@@ -28,6 +23,7 @@ const SearchList = ({
   hardwareModels,
   hardwareStatuses,
   hardwareUnits,
+  navigate,
 }: _Props): JSX.Element => {
   const statuses = [
     "Needs Repair",
@@ -113,6 +109,9 @@ const SearchList = ({
         pluginHooks={[useSortBy]}
         rowData={hardwareUnits}
         rowSpacing="m"
+        onRowClick={(cellData) =>
+          navigate(`/admin/current-org/hardware/${cellData.uuid}`)
+        }
       />
     </Stack>
   );

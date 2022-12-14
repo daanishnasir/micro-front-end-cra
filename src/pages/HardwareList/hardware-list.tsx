@@ -484,6 +484,7 @@ const ListViewHardware: React.FC<Props> = ({ navigate }) => {
               hardwareModels={allModelOptions}
               hardwareStatuses={allStatusOptions}
               hardwareUnits={state.hardwareUnits}
+              navigate={navigate}
             />
           </div>
         </form>
