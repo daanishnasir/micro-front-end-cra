@@ -5,14 +5,14 @@ import {
   ThemeProvider,
   BreakpointConsumer,
 } from "@resi-media/resi-ui";
-import ListViewHardware from "./pages/HardwareList/hardware-list";
 import Router from "./Router";
 
 type Props = {
+  authToken: string;
   navigate: (route: string) => void;
 };
 
-const App: React.FC<Props> = ({ navigate }) => {
+const App: React.FC<Props> = ({ navigate, authToken }) => {
   return (
     <BreakpointProvider queries={theme.mq}>
       <BreakpointConsumer>
@@ -35,7 +35,7 @@ const App: React.FC<Props> = ({ navigate }) => {
               }}
             >
               <div className="App">
-                <Router navigate={navigate} />
+                <Router navigate={navigate} authToken={authToken} />
               </div>
             </ThemeProvider>
           );

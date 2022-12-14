@@ -11,7 +11,6 @@ import { css } from "@emotion/react";
 import { Draft, Inline, Stack } from "@resi-media/resi-ui";
 import { produce } from "immer";
 import { Controller, FormProvider, useForm } from "react-hook-form";
-import { hardwareUnits } from "../../assets/hardware-units";
 import { SearchList } from "../../components/SearchList";
 import "urlpattern-polyfill";
 
@@ -51,20 +50,94 @@ interface HardwareState {
   isMoreFilters: boolean;
 }
 
-const initialHardwareState = {
-  hardwareUnits: hardwareUnits,
-  isMoreFilters: false,
-};
-
-const defaultUnits = [...hardwareUnits];
-
 type Props = {
+  authToken: string;
   navigate: (route: string) => void;
 };
 
-const ListViewHardware: React.FC<Props> = ({ navigate }) => {
-  const mounted = React.useRef(false);
-  const [state, setState] = React.useState<HardwareState>(initialHardwareState);
+const ListViewHardware: React.FC<Props> = ({ navigate, authToken }) => {
+  const [hardwareState, setHardwareState] = React.useState<HardwareState>({
+    hardwareUnits: [],
+    isMoreFilters: false,
+  });
+  const [allModelOptions, setAllModelOptions] = React.useState<Option[]>([]);
+  const [allStatusOptions, setAllStatusOptions] = React.useState<Option[]>([]);
+  const [allLocationOptions, setAllLocationOptions] = React.useState<Option[]>(
+    []
+  );
+
+  React.useEffect(() => {
+    fetch("https://int-central.resi.io/internal/api/v1/hardwaremodels", {
+      headers: {
+        authorization: `X-Bearer ${authToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setAllModelOptions(
+          json.map((item: { name: string; uuid: string }) => ({
+            label: item.name,
+            value: item.uuid,
+          }))
+        );
+      })
+      .catch((err) => console.error(err));
+
+    fetch("https://int-central.resi.io/internal/api/v1//hardwarestatuses", {
+      headers: {
+        authorization: `X-Bearer ${authToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setAllStatusOptions(
+          json.map((item: { name: string; uuid: string }) => ({
+            label: item.name,
+            value: item.uuid,
+          }))
+        );
+      })
+      .catch((err) => console.error(err));
+
+    fetch("https://int-central.resi.io/internal/api/v1//hardwarelocations", {
+      headers: {
+        authorization: `X-Bearer ${authToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        setAllLocationOptions(
+          json.map((item: { name: string; uuid: string }) => ({
+            label: item.name,
+            value: item.uuid,
+          }))
+        );
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  React.useEffect(() => {
+    if (
+      allModelOptions.length === 0 ||
+      allStatusOptions.length === 0 ||
+      allLocationOptions.length === 0
+    )
+      return;
+    fetch("https://int-central.resi.io/internal/api/v1/hardwareunits", {
+      headers: {
+        authorization: `X-Bearer ${authToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((json) =>
+        setHardwareState(
+          produce((draft) => {
+            draft.hardwareUnits = json;
+          })
+        )
+      )
+      .catch((err) => console.error(err));
+  }, [allModelOptions, allStatusOptions, allLocationOptions]);
 
   const initialEditState: SearchForm = {
     buildDateEnd: "",
@@ -84,65 +157,6 @@ const ListViewHardware: React.FC<Props> = ({ navigate }) => {
 
   const { control, getValues, handleSubmit, setValue } = methods;
 
-  const allModelOptions: Option[] = React.useMemo(() => {
-    return [
-      {
-        value: "",
-        label: "All Models",
-      },
-      {
-        value: "D2100",
-        label: "D2100",
-      },
-      {
-        value: "E1210",
-        label: "E1210",
-      },
-      {
-        value: "E4300",
-        label: "E4300",
-      },
-      {
-        value: "E2211-2",
-        label: "E2211-2",
-      },
-    ];
-  }, []);
-
-  const allLocationOptions: Option[] = React.useMemo(() => {
-    return [
-      {
-        value: "",
-        label: "All Locations",
-      },
-      {
-        value: "Plano Office",
-        label: "Plano Office",
-      },
-      {
-        value: "Twisted Transistor",
-        label: "Twisted Transistor",
-      },
-    ];
-  }, []);
-
-  const allStatusOptions: Option[] = React.useMemo(() => {
-    return [
-      {
-        value: "",
-        label: "All Statuses",
-      },
-      {
-        value: "Customer Owned",
-        label: "Customer Owned",
-      },
-      {
-        value: "Dealer Owned",
-        label: "Dealer Owned",
-      },
-    ];
-  }, []);
-
   const hardwareTypeOptions: Option[] = React.useMemo(
     () => [
       { label: "All Hardware", value: "" },
@@ -153,41 +167,30 @@ const ListViewHardware: React.FC<Props> = ({ navigate }) => {
   );
 
   const handleFormSubmit = async (data: SearchForm) => {
-    const filters = {
-      ...(data.type && { type: data.type }),
-      ...(data.modelId && { modelId: data.modelId }),
-      ...(data.serialNumber && { serial: data.serialNumber }),
-      ...(data.vendorSaleInvoice && {
-        vendorSaleInvoice: data.vendorSaleInvoice,
-      }),
-      ...(data.locationId && { locationId: data.locationId }),
-      ...(data.statusId && { statusId: data.statusId }),
-    };
-
-    const filteredSerailUnits = defaultUnits.filter((unit) =>
+    const filteredSerailUnits = hardwareState.hardwareUnits.filter((unit) =>
       data.serialNumber.includes(unit.serial)
     );
 
-    const filteredStatusUnits = defaultUnits.filter(
+    const filteredStatusUnits = hardwareState.hardwareUnits.filter(
       (unit) => unit.statusId === data.statusId
     );
 
     if (Boolean(data.serialNumber)) {
-      setState(
+      setHardwareState(
         produce((draft) => {
           draft.hardwareUnits = filteredSerailUnits;
         })
       );
     } else if (Boolean(data.statusId)) {
-      setState(
+      setHardwareState(
         produce((draft) => {
           draft.hardwareUnits = filteredStatusUnits;
         })
       );
     } else {
-      setState(
+      setHardwareState(
         produce((draft) => {
-          draft.hardwareUnits = defaultUnits;
+          draft.hardwareUnits = [];
         })
       );
     }
@@ -285,7 +288,7 @@ const ListViewHardware: React.FC<Props> = ({ navigate }) => {
                   </Inline>
 
                   {/* More Filters Block  */}
-                  {state.isMoreFilters && (
+                  {hardwareState.isMoreFilters && (
                     <div data-testid="more-filters-section">
                       <Inline
                         marginTop="l"
@@ -452,17 +455,23 @@ const ListViewHardware: React.FC<Props> = ({ navigate }) => {
                     <Draft.Button
                       data-testid="more-filters-button"
                       label={
-                        !state.isMoreFilters ? "More Filters" : "Less Filters"
+                        !hardwareState.isMoreFilters
+                          ? "More Filters"
+                          : "Less Filters"
                       }
                       onClick={() => {
-                        setState(
+                        setHardwareState(
                           produce((draft) => {
-                            draft.isMoreFilters = !state.isMoreFilters;
+                            draft.isMoreFilters = !hardwareState.isMoreFilters;
                           })
                         );
                       }}
                       startNode={
-                        !state.isMoreFilters ? <DownOutlined /> : <UpOutlined />
+                        !hardwareState.isMoreFilters ? (
+                          <DownOutlined />
+                        ) : (
+                          <UpOutlined />
+                        )
                       }
                       variant="outlined"
                     />
@@ -483,7 +492,7 @@ const ListViewHardware: React.FC<Props> = ({ navigate }) => {
               hardwareLocations={allLocationOptions}
               hardwareModels={allModelOptions}
               hardwareStatuses={allStatusOptions}
-              hardwareUnits={state.hardwareUnits}
+              hardwareUnits={hardwareState.hardwareUnits}
               navigate={navigate}
             />
           </div>
