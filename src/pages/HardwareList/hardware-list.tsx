@@ -54,10 +54,10 @@ const initialHardwareState = {
 const defaultUnits = [...hardwareUnits];
 
 type Props = {
-  studioHost: string;
+  navigate: (route: string) => void;
 };
 
-const ListViewHardware: React.FC<Props> = ({ studioHost }) => {
+const ListViewHardware: React.FC<Props> = ({ navigate }) => {
   const mounted = React.useRef(false);
   const [state, setState] = React.useState<HardwareState>(initialHardwareState);
 
@@ -188,6 +188,11 @@ const ListViewHardware: React.FC<Props> = ({ studioHost }) => {
     }
   };
 
+  const handleClick: React.ReactEventHandler<Element> = (e) => {
+    e.preventDefault();
+    navigate("/admin/current-org/hardware/create");
+  };
+
   return (
     <div data-testid="hardware-search-page" className="hardware-page">
       <FormProvider {...methods}>
@@ -203,11 +208,10 @@ const ListViewHardware: React.FC<Props> = ({ studioHost }) => {
             {/* ADD DECODER BUTTON IS RIGHT HERE!!!!! */}
 
             <Draft.Button
-              as="a"
-              href={`${studioHost}/admin/current-org/hardware/create`}
               data-testid="add-preset-button"
               label="Add Decoder"
               startNode={<PlusOutlined />}
+              onClick={handleClick}
             />
           </header>
 
