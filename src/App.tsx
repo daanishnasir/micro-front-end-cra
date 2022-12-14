@@ -8,10 +8,10 @@ import {
 import ListViewHardware from "./pages/HardwareList/hardware-list";
 
 type Props = {
-  studioHost: string;
+  navigate: (route: string) => void;
 };
 
-const App: React.FC<Props> = ({ studioHost }) => {
+const App: React.FC<Props> = ({ navigate }) => {
   return (
     <BreakpointProvider queries={theme.mq}>
       <BreakpointConsumer>
@@ -34,7 +34,7 @@ const App: React.FC<Props> = ({ studioHost }) => {
               }}
             >
               <div className="App">
-                <ListViewHardware studioHost={studioHost} />
+                <ListViewHardware navigate={navigate} />
               </div>
             </ThemeProvider>
           );
