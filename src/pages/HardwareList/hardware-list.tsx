@@ -13,6 +13,11 @@ import { produce } from "immer";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { hardwareUnits } from "../../assets/hardware-units";
 import { SearchList } from "../../components/SearchList";
+import "urlpattern-polyfill";
+
+export const routePattern = new URLPattern({
+  pathname: "/admin/current-org/hardware",
+});
 
 type SearchForm = {
   buildDateEnd: string;

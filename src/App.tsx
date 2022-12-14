@@ -6,6 +6,7 @@ import {
   BreakpointConsumer,
 } from "@resi-media/resi-ui";
 import ListViewHardware from "./pages/HardwareList/hardware-list";
+import Router from "./Router";
 
 type Props = {
   navigate: (route: string) => void;
@@ -34,7 +35,7 @@ const App: React.FC<Props> = ({ navigate }) => {
               }}
             >
               <div className="App">
-                <ListViewHardware navigate={navigate} />
+                <Router navigate={navigate} />
               </div>
             </ThemeProvider>
           );
