@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import { createBrowserHistory } from "@remix-run/router";
 
 (window as any).renderListViewHardware = (
   containerId: string,
@@ -10,8 +9,9 @@ import { createBrowserHistory } from "@remix-run/router";
   const authToken = props?.authToken ? props.authToken : "";
   let navigate = props?.navigate ? props.navigate : undefined;
   if (!navigate) {
-    const history = createBrowserHistory();
-    navigate = history.push;
+    navigate = (route) => {
+      window.location.assign(route);
+    };
   }
   const root = ReactDOM.createRoot(
     document.getElementById(containerId) as HTMLElement
